@@ -24,5 +24,6 @@ class List_:
 		self.NumOfData += 1
 		
 	# 노드 삭제
-	def delete(self, )
+	def delete(self, data):
+		pass
 	
