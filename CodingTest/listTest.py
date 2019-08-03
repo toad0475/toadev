@@ -26,3 +26,4 @@ class List_:
 	# 노드 삭제
 	def delete(self, )
 	
+	
