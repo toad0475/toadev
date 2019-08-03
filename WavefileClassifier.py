@@ -5,9 +5,7 @@ from tkinter import filedialog
 
 # 웨이브 파일(stereo, mono) 분류기 
 def waveClassifier():
-    srcDir = filedialog.askdirectory(title='원본 폴더 선택...')
-    stereoTargetDir = filedialog.askdirectory(title='스테레오 폴더 선택...')
-    monoTargetDir = filedialog.askdirectory(title='모노 폴더 선택...')
+ 
     files = []
 
     # src 파일 경로 리스트 만들기
@@ -36,4 +34,7 @@ def getSubPath(src, target):
 
 # 메인
 if __name__=="__main__":
+    srcDir = filedialog.askdirectory(title='원본 폴더 선택...')
+    stereoTargetDir = filedialog.askdirectory(title='스테레오 폴더 선택...')
+    monoTargetDir = filedialog.askdirectory(title='모노 폴더 선택...')
     waveClassifier()
