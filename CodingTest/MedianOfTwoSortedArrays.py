@@ -20,9 +20,23 @@ The median is (2 + 3)/2 = 2.5
 '''
 
 class Solution:
-    def findMedianSortedArrays(self, nums1, nums2):
-    	arr = num1 + num2
-    	len = len(arr)
-    	
-    	for i in :
-    	
+	def findMedianSortedArrays(self, nums1, nums2):
+
+
+		if len(arr)/2==0:
+			return tot/length
+		else:
+			
+			
+		arr = nums1 + nums2
+		length = len(arr)
+		tot = 0
+		for i in arr:
+			tot += i
+		
+
+
+
+
+a = Solution()
+print(a.findMedianSortedArrays([1,2],[3,4]))
