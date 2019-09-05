@@ -19,24 +19,22 @@ nums2 = [3, 4]
 The median is (2 + 3)/2 = 2.5
 '''
 
-class Solution:
-	def findMedianSortedArrays(self, nums1, nums2):
-
-
-		if len(arr)/2==0:
-			return tot/length
-		else:
-			
-			
-		arr = nums1 + nums2
-		length = len(arr)
-		tot = 0
-		for i in arr:
-			tot += i
-		
+def findMedianSortedArrays(nums1, nums2):
+	n = len(nums1)
+	m = len(nums2)
+	if n+m/2 == 0:
+		pass
+	
+	if nums1[int(n/2)] > nums2[int(m/2)]:
+		return findMedianSortedArrays(
+			nums1[:int(n/2)+1],nums2[int(m/2)+1:])
+	else:
+		return findMedianSortedArrays(
+			nums1[int(n/2)+1:],nums2[:int(m/2)+1])
 
 
 
-
-a = Solution()
-print(a.findMedianSortedArrays([1,2],[3,4]))
+findMedianSortedArrays(
+	[1,4,7,9,22,24],
+	[2,3,5,8,10]
+	)
