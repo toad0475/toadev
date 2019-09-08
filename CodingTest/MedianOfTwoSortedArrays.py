@@ -23,29 +23,34 @@ def findMedianSortedArrays(nums1, nums2):
 	n = len(nums1)
 	m = len(nums2)
 	
-	if n+m == 1:
-		if n == 1:
-			return nums1[0]
-		else:
-			return nums2[0]
-			
-	if n+m == 2:
-		if n == 2:
-			return (nums1[0]+nums1[1])/2
-		elif n == 1:
-			return (nums1[0]+nums2[0])/2
-		else:
-			return (nums2[0]+nums2[1])/2
+	nums1_head = 0
+	nums1_tail = n-1
 	
-	if nums1[n//2] > nums2[m//2]:
+	nums2_head = 0
+	nums2_tail = m-1
+	
+	# get median in array
+	if n%2:
+		nums1_med = float(nums1[n//2])
+	else:
+		nums1_med = (nums1[n//2]+nums1[n//2-1])/2
+	if m%2:
+		nums2_med = float(nums2[m//2])
+	else:
+		nums2_med = (nums2[n//2]+nums2[n//2-1])/2
+	
+	if nums1_med == nums2_med:
+		return nums1_med
+	elif nums1_med > nums2_med:
+		nums1_head = nums1_med
 		return findMedianSortedArrays(
 			nums1[:n//2],nums2[m//2:])
 	else:
 		return findMedianSortedArrays(
-			nums1[n//2:],nums2[:m//2])
+			nums1[n//2:],nums2[:m//2+1])
+	
 
-
-print(findMedianSortedArrays(
+print(solution(
 	[5,8,9,15],
 	[2,5,6]
 	))
