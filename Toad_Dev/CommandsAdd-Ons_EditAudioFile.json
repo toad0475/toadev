@@ -1,0 +1,43 @@
+{
+    "commands":[
+        {
+            "id":"ak.open_in_soundforge",
+            "displayName":"Edit in Soundforge",
+            "defaultShortcut":"W",
+            "program":"C:\\Program Files (x86)\\MAGIX\\Sound Forge Pro 11.0\\Forge110.exe",
+            "args":"${sound:originalWavFilePath}",
+
+            "cwd":"",
+            "contextMenu":{
+                "basePath":"Editors",
+                "enabledFor":"Sound,AudioSource"
+            },
+            "mainMenu":{
+                "basePath":"Extra"
+            }
+        },
+        {
+            "id":"ak.open_in_reaper",
+            "displayName":"Edit in Reaper",
+            "defaultShortcut":"",
+            "program":"C:\\Program Files\\REAPER (x64)\\reaper.exe",
+            "args":"${sound:originalWavFilePath}",
+            "cwd":"",
+            "mainMenu":{
+                "basePath":"Extra"
+            }
+        },
+        {
+            "id":"ak.open_in_reaper_with_audiofiles",
+            "displayName":"Edit in Reaper with Audio Files",
+            "defaultShortcut":"",
+            "program":"RunReaperWithArgs.bat",
+            "args":"${sound:originalWavFilePath}",
+            "startMode":"MultipleSelectionSingleProcessSpaceSeparated",
+            "cwd":"C:\\Users\\toad0475\\AppData\\Roaming\\Audiokinetic\\Wwise\\Add-ons\\",
+            "mainMenu":{
+                "basePath":"Extra"
+            }
+        }
+    ]
+}

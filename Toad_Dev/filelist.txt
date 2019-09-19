@@ -1,0 +1,10 @@
+F:\TADProj\TADProject\AutoSound_UnrealProject\AutoSound_Wwiseproject\Originals\SFX\q_260_4_voice_1.WAV
+F:\TADProj\TADProject\AutoSound_UnrealProject\AutoSound_Wwiseproject\Originals\SFX\q_260_4_voice_2.WAV
+F:\TADProj\TADProject\AutoSound_UnrealProject\AutoSound_Wwiseproject\Originals\SFX\q_260_4_voice_3.WAV
+F:\TADProj\TADProject\AutoSound_UnrealProject\AutoSound_Wwiseproject\Originals\SFX\q_260_6_voice_1.WAV
+F:\TADProj\TADProject\AutoSound_UnrealProject\AutoSound_Wwiseproject\Originals\SFX\q_260_6_voice_3.WAV
+F:\TADProj\TADProject\AutoSound_UnrealProject\AutoSound_Wwiseproject\Originals\SFX\q_260_6_voice_5.WAV
+<CONFIG
+  FXCHAIN "C:\Users\toad0475\AppData\Roaming\REAPER\FXChains\test.RfxChain"
+  OUTPATH "C:\output\"
+>

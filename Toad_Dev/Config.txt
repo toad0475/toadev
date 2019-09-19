@@ -1,0 +1,4 @@
+<CONFIG
+  FXCHAIN "C:\Users\toad0475\AppData\Roaming\REAPER\FXChains\test.RfxChain"
+  OUTPATH "C:\output\"
+>
