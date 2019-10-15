@@ -1,4 +1,4 @@
-# toadev
+# Jungkun Park
 Develop &amp; Coding Study Repo
 
 Hello world!
