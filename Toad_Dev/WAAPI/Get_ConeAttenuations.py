@@ -17,10 +17,11 @@ try:
         print("Query the Default Work Unit information:")
         object_get_args = {
             "from": {
-                "id": ["{4064325C-264E-4362-8132-F07ACA6D3E3F}"]
+                "id": ["{4064325C-264E-4362-8132-F07ACA6D3E3F}"]   # Attenuation id 
             },
             "options": {
-                "return": ["@ConeAttenuation",
+                # if you want to get value using Wwise object references, you have to type @ or @@ before properties.
+                "return": ["@ConeAttenuation", 
                            "@ConeInnerAngle",
                            "@ConeOuterAngle",
                            "@ConeUse",
