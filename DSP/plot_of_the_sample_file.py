@@ -4,7 +4,7 @@ import scipy.io.wavfile
 import matplotlib.pyplot as plt
 
 
-sr, data = sio.wavfile.read('UI_CheckButton.wav')
+sr, data = sio.wavfile.read('UI_CheckButton.wav') # replace wave file here
 
 data = data / 2.**15
 t = np.linspace(0, len(data)/float(sr), len(data))
