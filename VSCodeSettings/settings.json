@@ -1,0 +1,27 @@
+{
+    "workbench.iconTheme": "material-icon-theme",
+    "window.zoomLevel": 0,
+    "python.pythonPath": "C:\\Users\\toad0475.NC-KOREA\\AppData\\Local\\Programs\\Python\\Python37\\python.exe",
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "python.jediEnabled": false,
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "Python: Current File (Integrated Terminal)",
+                "type": "python",
+                "request": "launch",
+                "program": "${file}",
+                "console": "integratedTerminal"
+            },
+            {
+                "name": "Python: Current File (External Terminal)",
+                "type": "python",
+                "request": "launch",
+                "program": "${file}",
+                "console": "externalTerminal"
+            }
+        ]
+    }
+}
