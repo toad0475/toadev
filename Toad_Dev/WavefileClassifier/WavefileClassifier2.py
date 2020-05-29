@@ -104,7 +104,7 @@ class Form(QWidget):
     def setFolderdDir(self,dir,dirPath):
         dirPath.setText(dir)
 
-    def checkValidPath(self, *args):
+    def checkValidDir(self, *args):
         isValid = True
         for p in args:
             if not os.path.exists(p[0]):
@@ -124,7 +124,7 @@ class Form(QWidget):
         stereoCount = 0
         totCount = 0
 
-        if self.checkValidPath((in_originDir,"Original Root Folder"),(in_monoDir,"Mono Folder"),(in_stereoTDir,"Stereo Folder")):
+        if self.checkValidDir((in_originDir,"Original Root Folder"),(in_monoDir,"Mono Folder"),(in_stereoTDir,"Stereo Folder")):
             files = list()
             OrifolderName = self.getSubPath(Path(in_originDir).parents[0],in_originDir)
 
@@ -133,6 +133,7 @@ class Form(QWidget):
                 #r=root, d=directories, f=files
                 files += [os.path.join(r,file) for file in f if file.endswith('.wav')]
             
+            totCount = len(files)
             # stereo, mono 각각의  폴더로 분류 작업
             self.textBox.insertPlainText('>>> Wave 파일 분류작업을 시작합니다.\n')
 
@@ -143,27 +144,29 @@ class Form(QWidget):
             for wavefile in files:
                 subPath = self.getSubPath(in_originDir, wavefile)
                 with wave.open(wavefile,'r') as wf:
-                    totCount += 1
                     try:
                         if wf.getnchannels() == 2:
+                            if os.path.exists(wavefile):
+                                raise Exception
                             if not os.path.isdir(os.path.dirname(in_stereoTDir + OrifolderName + subPath)):
                                 os.makedirs(os.path.dirname(in_stereoTDir + OrifolderName + subPath))
                             shutil.copy(wavefile, in_stereoTDir + OrifolderName + subPath)
 
-                            self.textBox.insertPlainText('>>> {} 파일이 {} 로 복사되었습니다.\n'.format(wavefile,in_stereoTDir + OrifolderName + subPath))
+                            self.textBox.insertPlainText('>>> SUCCESS: {} 파일이 {} 로 복사되었습니다.\n'.format(wavefile,in_stereoTDir + OrifolderName + subPath))
                             stereoCount += 1
 
                         elif wf.getnchannels() == 1:
+                            if os.path.exists(wavefile):
+                                raise Exception                           
                             if not os.path.isdir(os.path.dirname(in_monoDir + OrifolderName + subPath)):
                                 os.makedirs(os.path.dirname(in_monoDir + OrifolderName + subPath))
                             shutil.copy(wavefile, in_monoDir + OrifolderName + subPath)
 
-                            self.textBox.insertPlainText('>>> {} 파일이 {} 로 복사되었습니다.\n'.format(wavefile,in_monoDir + OrifolderName + subPath))
+                            self.textBox.insertPlainText('>>> SUCCESS: {} 파일이 {} 로 복사되었습니다.\n'.format(wavefile,in_monoDir + OrifolderName + subPath))
                             monoCount += 1
 
                     except:
-                        self.textBox.insertPlainText('>>> WARNING: {} 파일이 경로에 이미 존재하여 복사하지 못했습니다.\n'.format(wavefile))
-
+                        self.textBox.insertPlainText('>>> FAILURE: {} 파일이 경로에 이미 존재하여 복사하지 못했습니다.\n'.format(wavefile))
             self.textBox.insertPlainText(">>> 총 {}개의 Wave 파일 중, Mono 파일 {}개, Stereo 파일 {}개 분류되었습니다.\n".format(totCount, monoCount, stereoCount))
             self.textBox.insertPlainText(">>> Wave 파일 분류 작업을 완료 했습니다!\n")
             return
@@ -182,4 +185,6 @@ if __name__=='__main__':
     wcApp.show()
     app.exec_()
 
+# TODO
+# thread 처리를 위해 ... https://stackoverflow.com/questions/49682271/how-can-i-update-the-text-in-real-time-while-doing-the-calculations-in-a-qlabel
 
