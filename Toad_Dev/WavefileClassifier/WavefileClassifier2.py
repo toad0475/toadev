@@ -86,9 +86,9 @@ class Form(QWidget):
     def createMessageBox(self):
         self.messageBox = QGroupBox("Log Message")
         messageBoxlayout = QHBoxLayout()
-        textBox = QPlainTextEdit()
-        textBox.setReadOnly(True)
-        messageBoxlayout.addWidget(textBox)
+        self.textBox = QPlainTextEdit()
+        self.textBox.setReadOnly(True)
+        messageBoxlayout.addWidget(self.textBox)
         self.messageBox.setLayout(messageBoxlayout)
     
     def createExcuteBtn(self):
@@ -107,6 +107,7 @@ class Form(QWidget):
     def checkValidPath(self, *args):
         for p in args:
             if not os.path.exists(p):
+                self.textBox.insertPlainText("[{}] 디렉토리가 유효하지 않습니다. \n".format(p))
                 print("[{}] 디렉토리가 유효하지 않습니다.".format(p))
                 return False
         return True
@@ -114,41 +115,51 @@ class Form(QWidget):
     # 웨이브 파일(stereo, mono) 분류기 
     def waveClassifier(self):
         
-        srcDir = self.originDir.text()
-        monoTargetDir = self.monoDir.text()
-        stereoTargetDir = self.stereoDir.text()
+        in_originDir = self.originDir.text()
+        in_monoDir = self.monoDir.text()
+        in_stereoTDir = self.stereoDir.text()
 
-        if self.checkValidPath(srcDir,monoTargetDir,stereoTargetDir):
-            print("valid check Complete!")
+        monoCount,stereoCount,totCount = 0,0,0
 
+        if self.checkValidPath(in_originDir,in_monoDir,in_stereoTDir):
             files = list()
-            OrifolderName = self.getSubPath(Path(srcDir).parents[0],srcDir)
+            OrifolderName = self.getSubPath(Path(in_originDir).parents[0],in_originDir)
 
             # src 파일 경로 리스트 만들기
-            for r, d, f in os.walk(srcDir):
+            for r, d, f in os.walk(in_originDir):
                 #r=root, d=directories, f=files
                 files += [os.path.join(r,file) for file in f if file.endswith('.wav')]
             
             # stereo, mono 각각의  폴더로 분류 작업
+            self.textBox.insertPlainText('wav 파일 분류작업을 시작합니다.\n')
             print('wav 파일 분류작업을 시작합니다.')
             for wavefile in files:
-                subPath = self.getSubPath(srcDir, wavefile)
+                subPath = self.getSubPath(in_originDir, wavefile)
                 with wave.open(wavefile,'r') as wf:
+                    totCount += 1
                     try:
                         if wf.getnchannels() == 2:
-                            if not os.path.isdir(os.path.dirname(stereoTargetDir + OrifolderName + subPath)):
-                                os.makedirs(os.path.dirname(stereoTargetDir + OrifolderName + subPath))
-                            shutil.copy(wavefile, stereoTargetDir + OrifolderName + subPath)
-                            print('INFO: {} 파일이 {} 로 복사되었습니다.'.format(wavefile,stereoTargetDir + OrifolderName + subPath))
+                            if not os.path.isdir(os.path.dirname(in_stereoTDir + OrifolderName + subPath)):
+                                os.makedirs(os.path.dirname(in_stereoTDir + OrifolderName + subPath))
+                            shutil.copy(wavefile, in_stereoTDir + OrifolderName + subPath)
+                            self.textBox.insertPlainText('INFO: {} 파일이 {} 로 복사되었습니다.\n'.format(wavefile,in_stereoTDir + OrifolderName + subPath))
+                            print('INFO: {} 파일이 {} 로 복사되었습니다.'.format(wavefile,in_stereoTDir + OrifolderName + subPath))
+                            stereoCount += 1
                         elif wf.getnchannels() == 1:
-                            if not os.path.isdir(os.path.dirname(monoTargetDir + OrifolderName + subPath)):
-                                os.makedirs(os.path.dirname(monoTargetDir + OrifolderName + subPath))
-                            shutil.copy(wavefile, monoTargetDir + OrifolderName + subPath)
-                            print('INFO: {} 파일이 {} 로 복사되었습니다.'.format(wavefile,monoTargetDir + OrifolderName + subPath))
+                            if not os.path.isdir(os.path.dirname(in_monoDir + OrifolderName + subPath)):
+                                os.makedirs(os.path.dirname(in_monoDir + OrifolderName + subPath))
+                            shutil.copy(wavefile, in_monoDir + OrifolderName + subPath)
+                            self.textBox.insertPlainText('INFO: {} 파일이 {} 로 복사되었습니다.\n'.format(wavefile,in_monoDir + OrifolderName + subPath))
+                            print('INFO: {} 파일이 {} 로 복사되었습니다.'.format(wavefile,in_monoDir + OrifolderName + subPath))
+                            monoCount += 1
                     except:
+                        self.textBox.insertPlainText('WARNING: {} 파일이 경로에 이미 존재하여 복사하지 못했습니다.\n'.format(wavefile))
                         print('WARNING: {} 파일이 경로에 이미 존재하여 복사하지 못했습니다.'.format(wavefile))
-                
-            return print("Wav 분류 작업을 완료 했습니다!")
+
+            self.textBox.insertPlainText("총 {}개의 Wave 파일 중, Mono 파일 {}개, Stereo 파일 {}개가 분류되었습니다.\n".format(totCount, monoCount, stereoCount))
+            print("총 {}개의 Wave 파일 중, Mono 파일 {}개, Stereo 파일 {}개가 분류되었습니다.".format(totCount, monoCount, stereoCount))
+            self.textBox.insertPlainText("분류 작업을 완료 했습니다!\n")
+            print("분류 작업을 완료 했습니다!")
 
     # 소스 경로와 목적 경로에서 겹치치 않는 하위 경로만 가져오기
     def getSubPath(self, src, target):
