@@ -183,7 +183,7 @@ if __name__=='__main__':
     
     wcApp = Form()
     wcApp.show()
-    app.exec_()
+    exit(app.exec_())
 
 # TODO
 # thread 처리를 위해 ... https://stackoverflow.com/questions/49682271/how-can-i-update-the-text-in-real-time-while-doing-the-calculations-in-a-qlabel
