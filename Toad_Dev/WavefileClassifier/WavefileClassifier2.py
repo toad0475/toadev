@@ -146,7 +146,7 @@ class Form(QWidget):
                 with wave.open(wavefile,'r') as wf:
                     try:
                         if wf.getnchannels() == 2:
-                            if os.path.exists(wavefile):
+                            if os.path.exists(in_stereoTDir + OrifolderName + subPath):
                                 raise Exception
                             if not os.path.isdir(os.path.dirname(in_stereoTDir + OrifolderName + subPath)):
                                 os.makedirs(os.path.dirname(in_stereoTDir + OrifolderName + subPath))
@@ -156,7 +156,7 @@ class Form(QWidget):
                             stereoCount += 1
 
                         elif wf.getnchannels() == 1:
-                            if os.path.exists(wavefile):
+                            if os.path.exists(in_monoDir + OrifolderName + subPath):
                                 raise Exception                           
                             if not os.path.isdir(os.path.dirname(in_monoDir + OrifolderName + subPath)):
                                 os.makedirs(os.path.dirname(in_monoDir + OrifolderName + subPath))
